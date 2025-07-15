@@ -1,97 +1,81 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# BookmarksApp
 
-# Getting Started
+BookmarksApp is a simple iOS application built with React Native that allows you to save URLs from other apps (like your web browser) using the native iOS Share Sheet.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- **Save Bookmarks**: Quickly save links from any app that supports sharing URLs.
+- **Centralized List**: View all your saved bookmarks in a clean, simple list.
+- **Native Integration**: Uses a native iOS Share Extension for seamless integration with the operating system.
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Architecture
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+The project uses a hybrid architecture to combine the power of React Native with native iOS capabilities:
 
-```sh
-# Using npm
+- **Main Application**: The main app is built with **React Native**. It is responsible for displaying the list of saved bookmarks. The primary screen is `src/screens/HomeScreen.tsx`.
+
+- **Share Extension**: The share functionality is a native **iOS Share Extension** written in **Swift** (`ios/BookmarkShareExtension/ShareViewController.swift`). This extension appears in the iOS Share Sheet and captures incoming URLs.
+
+- **Data Sharing**: To pass the bookmark from the native Share Extension to the React Native app, we use an **App Group**. This creates a shared data container that both the main app and the extension have permission to access.
+  - **`react-native-shared-group-preferences`**: This library acts as the bridge, allowing the React Native code to read data from the shared container that was written by the native Swift extension.
+
+```mermaid
+graph TD
+    A[Other Apps e.g., Safari] --&gt;|User Shares URL| B(iOS Share Sheet);
+    B --&gt; C{BookmarkShareExtension};
+    C --&gt;|Writes URL to| D[Shared Storage (App Group)];
+    D --&gt;|Is read by| E{Main React Native App};
+    E --&gt;|Displays Bookmark in| F(HomeScreen UI);
+```
+
+## Project Setup
+
+To run this project, you will need Node.js, Watchman, the React Native CLI, and Xcode.
+
+### 1. Clone & Install Dependencies
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd BookmarksApp
+
+# Install JavaScript dependencies
+npm install
+
+# Install iOS dependencies (CocoaPods)
+cd ios
+pod install
+cd ..
+```
+
+### 2. Configure App Group in Xcode
+
+This project requires an **App Group** to share data between the main app and the Share Extension. You must configure this in Xcode before the app will run correctly.
+
+1.  Open the project in Xcode by opening the `ios/BookmarksApp.xcworkspace` file.
+2.  Select the `BookmarksApp` project in the left sidebar, then select the **`BookmarksApp` target**.
+3.  Go to the **"Signing & Capabilities"** tab.
+4.  Click **"+ Capability"** and add **"App Groups"**.
+5.  In the App Groups section, click the **"+"** button and add a new group. The ID must be `group.org.reactjs.native.example.BookmarksApp`. Make sure it is checked.
+6.  Now, select the **`BookmarkShareExtension` target** from the dropdown menu.
+7.  Repeat steps 3-5 for the extension, ensuring you add the **exact same App Group ID** (`group.org.reactjs.native.example.BookmarksApp`) and that it is checked.
+
+### 3. Running the Application
+
+You can now run the app.
+
+#### From Terminal
+This is the recommended approach.
+
+```bash
+# Start the Metro bundler
 npm start
 
-# OR using Yarn
-yarn start
+# In a new terminal, run the app on the iOS simulator
+npx react-native run-ios
 ```
 
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
-
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+#### From Xcode
+1.  Launch the Metro bundler in a terminal window with `npm start`.
+2.  In Xcode, ensure your desired simulator is selected.
+3.  Click the "Run" button (▶).

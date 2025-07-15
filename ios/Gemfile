@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+# Use the master branch of Xcodeproj to get Xcode 16 support
+gem 'xcodeproj', git: 'https://github.com/CocoaPods/Xcodeproj.git', branch: 'master'
+gem 'cocoapods' 
