@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "BookmarksApp.app"
-               BlueprintName = "BookmarksApp"
-               ReferencedContainer = "container:BookmarksApp.xcodeproj">
+               BuildableName = "Markd.app"
+               BlueprintName = "Markd"
+               ReferencedContainer = "container:Markd.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "BookmarksAppTests.xctest"
-               BlueprintName = "BookmarksAppTests"
-               ReferencedContainer = "container:BookmarksApp.xcodeproj">
+               BuildableName = "MarkdTests.xctest"
+               BlueprintName = "MarkdTests"
+               ReferencedContainer = "container:Markd.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "BookmarksApp.app"
-            BlueprintName = "BookmarksApp"
-            ReferencedContainer = "container:BookmarksApp.xcodeproj">
+            BuildableName = "Markd.app"
+            BlueprintName = "Markd"
+            ReferencedContainer = "container:Markd.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "BookmarksApp.app"
-            BlueprintName = "BookmarksApp"
-            ReferencedContainer = "container:BookmarksApp.xcodeproj">
+            BuildableName = "Markd.app"
+            BlueprintName = "Markd"
+            ReferencedContainer = "container:Markd.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

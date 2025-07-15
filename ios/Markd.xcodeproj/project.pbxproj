@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		4F27919BCEA3C0F10F09657A /* libPods-BookmarksApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19B207EF643D7D39EC98193D /* libPods-BookmarksApp.a */; };
+		4F27919BCEA3C0F10F09657A /* libPods-Markd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19B207EF643D7D39EC98193D /* libPods-Markd.a */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		9A11AEC32E254D2100D37FFA /* BookmarkShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A11AEB92E254D2100D37FFA /* BookmarkShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9A11AEC32E254D2100D37FFA /* MarkdShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9A11AEB92E254D2100D37FFA /* MarkdShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FB5851E0B22D88FE7466BBCD /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -21,7 +21,7 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 9A11AEB82E254D2100D37FFA;
-			remoteInfo = BookmarkShareExtension;
+			remoteInfo = MarkdShareExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -32,7 +32,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				9A11AEC32E254D2100D37FFA /* BookmarkShareExtension.appex in Embed Foundation Extensions */,
+				9A11AEC32E254D2100D37FFA /* MarkdShareExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,37 +40,37 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		13B07F961A680F5B00A75B9A /* BookmarksApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookmarksApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BookmarksApp/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BookmarksApp/Info.plist; sourceTree = "<group>"; };
-		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = BookmarksApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		19B207EF643D7D39EC98193D /* libPods-BookmarksApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BookmarksApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		43FAF009D956F81D6FF2C4ED /* Pods-BookmarksApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookmarksApp.debug.xcconfig"; path = "Target Support Files/Pods-BookmarksApp/Pods-BookmarksApp.debug.xcconfig"; sourceTree = "<group>"; };
-		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = BookmarksApp/AppDelegate.swift; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = BookmarksApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		9A11AEB92E254D2100D37FFA /* BookmarkShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BookmarkShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		9ABD70552E2699650041AB58 /* BookmarksApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = BookmarksApp.entitlements; path = BookmarksApp/BookmarksApp.entitlements; sourceTree = "<group>"; };
-		C79710ECDBB14CE7F27E318E /* Pods-BookmarksApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookmarksApp.release.xcconfig"; path = "Target Support Files/Pods-BookmarksApp/Pods-BookmarksApp.release.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* Markd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Markd.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Markd/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Markd/Info.plist; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Markd/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		19B207EF643D7D39EC98193D /* libPods-Markd.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Markd.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		43FAF009D956F81D6FF2C4ED /* Pods-Markd.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markd.debug.xcconfig"; path = "Target Support Files/Pods-Markd/Pods-Markd.debug.xcconfig"; sourceTree = "<group>"; };
+		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Markd/AppDelegate.swift; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Markd/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		9A11AEB92E254D2100D37FFA /* MarkdShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MarkdShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9ABD70552E2699650041AB58 /* Markd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Markd.entitlements; path = Markd/Markd.entitlements; sourceTree = "<group>"; };
+		C79710ECDBB14CE7F27E318E /* Pods-Markd.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markd.release.xcconfig"; path = "Target Support Files/Pods-Markd/Pods-Markd.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9A11AEC72E254D2100D37FFA /* Exceptions for "BookmarkShareExtension" folder in "BookmarkShareExtension" target */ = {
+		9A11AEC72E254D2100D37FFA /* Exceptions for "MarkdShareExtension" folder in "MarkdShareExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 9A11AEB82E254D2100D37FFA /* BookmarkShareExtension */;
+			target = 9A11AEB82E254D2100D37FFA /* MarkdShareExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		9A11AEBA2E254D2100D37FFA /* BookmarkShareExtension */ = {
+		9A11AEBA2E254D2100D37FFA /* MarkdShareExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				9A11AEC72E254D2100D37FFA /* Exceptions for "BookmarkShareExtension" folder in "BookmarkShareExtension" target */,
+				9A11AEC72E254D2100D37FFA /* Exceptions for "MarkdShareExtension" folder in "MarkdShareExtension" target */,
 			);
-			path = BookmarkShareExtension;
+			path = MarkdShareExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F27919BCEA3C0F10F09657A /* libPods-BookmarksApp.a in Frameworks */,
+				4F27919BCEA3C0F10F09657A /* libPods-Markd.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,24 +94,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* BookmarksApp */ = {
+		13B07FAE1A68108700A75B9A /* Markd */ = {
 			isa = PBXGroup;
 			children = (
-				9ABD70552E2699650041AB58 /* BookmarksApp.entitlements */,
+				9ABD70552E2699650041AB58 /* Markd.entitlements */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 			);
-			name = BookmarksApp;
+			name = Markd;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				19B207EF643D7D39EC98193D /* libPods-BookmarksApp.a */,
+				19B207EF643D7D39EC98193D /* libPods-Markd.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -126,9 +126,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* BookmarksApp */,
+				13B07FAE1A68108700A75B9A /* Markd */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				9A11AEBA2E254D2100D37FFA /* BookmarkShareExtension */,
+				9A11AEBA2E254D2100D37FFA /* MarkdShareExtension */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -141,8 +141,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* BookmarksApp.app */,
-				9A11AEB92E254D2100D37FFA /* BookmarkShareExtension.appex */,
+				13B07F961A680F5B00A75B9A /* Markd.app */,
+				9A11AEB92E254D2100D37FFA /* MarkdShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,8 +150,8 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				43FAF009D956F81D6FF2C4ED /* Pods-BookmarksApp.debug.xcconfig */,
-				C79710ECDBB14CE7F27E318E /* Pods-BookmarksApp.release.xcconfig */,
+				43FAF009D956F81D6FF2C4ED /* Pods-Markd.debug.xcconfig */,
+				C79710ECDBB14CE7F27E318E /* Pods-Markd.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -159,9 +159,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* BookmarksApp */ = {
+		13B07F861A680F5B00A75B9A /* Markd */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BookmarksApp" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Markd" */;
 			buildPhases = (
 				C3FBA0EA716F0B9AF000013C /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
@@ -177,14 +177,14 @@
 			dependencies = (
 				9A11AEC22E254D2100D37FFA /* PBXTargetDependency */,
 			);
-			name = BookmarksApp;
-			productName = BookmarksApp;
-			productReference = 13B07F961A680F5B00A75B9A /* BookmarksApp.app */;
+			name = Markd;
+			productName = Markd;
+			productReference = 13B07F961A680F5B00A75B9A /* Markd.app */;
 			productType = "com.apple.product-type.application";
 		};
-		9A11AEB82E254D2100D37FFA /* BookmarkShareExtension */ = {
+		9A11AEB82E254D2100D37FFA /* MarkdShareExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9A11AEC82E254D2100D37FFA /* Build configuration list for PBXNativeTarget "BookmarkShareExtension" */;
+			buildConfigurationList = 9A11AEC82E254D2100D37FFA /* Build configuration list for PBXNativeTarget "MarkdShareExtension" */;
 			buildPhases = (
 				9A11AEB52E254D2100D37FFA /* Sources */,
 				9A11AEB62E254D2100D37FFA /* Frameworks */,
@@ -195,11 +195,11 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				9A11AEBA2E254D2100D37FFA /* BookmarkShareExtension */,
+				9A11AEBA2E254D2100D37FFA /* MarkdShareExtension */,
 			);
-			name = BookmarkShareExtension;
-			productName = BookmarkShareExtension;
-			productReference = 9A11AEB92E254D2100D37FFA /* BookmarkShareExtension.appex */;
+			name = MarkdShareExtension;
+			productName = MarkdShareExtension;
+			productReference = 9A11AEB92E254D2100D37FFA /* MarkdShareExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -219,7 +219,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BookmarksApp" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Markd" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -232,8 +232,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* BookmarksApp */,
-				9A11AEB82E254D2100D37FFA /* BookmarkShareExtension */,
+				13B07F861A680F5B00A75B9A /* Markd */,
+				9A11AEB82E254D2100D37FFA /* MarkdShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -281,15 +281,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BookmarksApp/Pods-BookmarksApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Markd/Pods-Markd-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BookmarksApp/Pods-BookmarksApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Markd/Pods-Markd-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookmarksApp/Pods-BookmarksApp-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Markd/Pods-Markd-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C3FBA0EA716F0B9AF000013C /* [CP] Check Pods Manifest.lock */ = {
@@ -307,7 +307,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BookmarksApp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Markd-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -320,15 +320,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BookmarksApp/Pods-BookmarksApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Markd/Pods-Markd-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BookmarksApp/Pods-BookmarksApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Markd/Pods-Markd-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookmarksApp/Pods-BookmarksApp-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Markd/Pods-Markd-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -354,7 +354,7 @@
 /* Begin PBXTargetDependency section */
 		9A11AEC22E254D2100D37FFA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 9A11AEB82E254D2100D37FFA /* BookmarkShareExtension */;
+			target = 9A11AEB82E254D2100D37FFA /* MarkdShareExtension */;
 			targetProxy = 9A11AEC12E254D2100D37FFA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -362,11 +362,11 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43FAF009D956F81D6FF2C4ED /* Pods-BookmarksApp.debug.xcconfig */;
+			baseConfigurationReference = 43FAF009D956F81D6FF2C4ED /* Pods-Markd.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = BookmarksApp/BookmarksApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Markd/Markd.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9ZHSV66Q9F;
 				ENABLE_BITCODE = NO;
@@ -374,7 +374,8 @@
 					"$(inherited)/**",
 					"$(SRCROOT)/../node_modules/**",
 				);
-				INFOPLIST_FILE = BookmarksApp/Info.plist;
+				INFOPLIST_FILE = Markd/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Markd;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -387,7 +388,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = BookmarksApp;
+				PRODUCT_NAME = Markd;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -396,18 +397,19 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C79710ECDBB14CE7F27E318E /* Pods-BookmarksApp.release.xcconfig */;
+			baseConfigurationReference = C79710ECDBB14CE7F27E318E /* Pods-Markd.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = BookmarksApp/BookmarksApp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Markd/Markd.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9ZHSV66Q9F;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"$(SRCROOT)/../node_modules/**",
 				);
-				INFOPLIST_FILE = BookmarksApp/Info.plist;
+				INFOPLIST_FILE = Markd/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Markd;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -420,7 +422,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = BookmarksApp;
+				PRODUCT_NAME = Markd;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -495,7 +497,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
@@ -564,7 +569,10 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)  ";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					" ",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -582,7 +590,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = BookmarkShareExtension/BookmarkShareExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MarkdShareExtension/MarkdShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -590,8 +598,8 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BookmarkShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BookmarkShareExtension;
+				INFOPLIST_FILE = MarkdShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MarkdShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -603,7 +611,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.BookmarksApp.BookmarkShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Markd.MarkdShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -624,7 +632,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_ENTITLEMENTS = BookmarkShareExtension/BookmarkShareExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = MarkdShareExtension/MarkdShareExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -633,8 +641,8 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BookmarkShareExtension/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BookmarkShareExtension;
+				INFOPLIST_FILE = MarkdShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MarkdShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -645,7 +653,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.BookmarksApp.BookmarkShareExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.Markd.MarkdShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -658,7 +666,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BookmarksApp" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Markd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -667,7 +675,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BookmarksApp" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "Markd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
@@ -676,7 +684,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9A11AEC82E254D2100D37FFA /* Build configuration list for PBXNativeTarget "BookmarkShareExtension" */ = {
+		9A11AEC82E254D2100D37FFA /* Build configuration list for PBXNativeTarget "MarkdShareExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9A11AEC52E254D2100D37FFA /* Debug */,
