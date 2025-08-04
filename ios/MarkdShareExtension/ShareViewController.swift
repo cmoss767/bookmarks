@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 class ShareViewController: UIViewController {
 
     // IMPORTANT: This must match the App Group ID you created in Xcode
-    let appGroupId = "group.org.reactjs.native.example.BookmarksApp"
+    let appGroupId = "group.com.chrismoss.Markd"
     let userDefaultsKey = "bookmarks"
 
     override func viewDidAppear(_ animated: Bool) {

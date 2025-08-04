@@ -6,13 +6,20 @@
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
-			<key>NSExtensionActivationRule</key>
-			<string>TRUEPREDICATE</string>
+					<key>NSExtensionActivationRule</key>
+		<dict>
+			<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
+			<integer>1</integer>
+			<key>NSExtensionActivationSupportsText</key>
+			<false/>
+			<key>NSExtensionActivationSupportsImageWithMaxCount</key>
+			<integer>0</integer>
 		</dict>
-		<key>NSExtensionPrincipalClass</key>
-		<string>$(PRODUCT_MODULE_NAME).ShareViewController</string>
+		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.share-services</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>$(PRODUCT_MODULE_NAME).ShareViewController</string>
 	</dict>
 	<key>RCTNewArchEnabled</key>
 	<true/>

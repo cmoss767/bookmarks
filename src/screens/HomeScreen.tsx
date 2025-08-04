@@ -11,7 +11,7 @@ import {
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
 
 // IMPORTANT: This must match the App Group ID you created in Xcode
-const appGroupId = 'group.org.reactjs.native.example.BookmarksApp';
+const appGroupId = 'group.com.chrismoss.Markd';
 const userDefaultsKey = 'bookmarks';
 
 // No storage initialization is needed here for this library
