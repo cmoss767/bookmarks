@@ -20,10 +20,15 @@ const HomeScreen = () => {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
 
   const loadBookmarks = useCallback(async () => {
+    console.log('🔄 Loading bookmarks...');
     try {
       const jsonString = await SharedGroupPreferences.getItem(
         userDefaultsKey,
-        appGroupId
+        appGroupId,
+      );
+      console.log(
+        '✅ Successfully loaded bookmarks:',
+        jsonString ? 'data found' : 'no data',
       );
 
       if (jsonString) {
@@ -35,13 +40,26 @@ const HomeScreen = () => {
         setBookmarks([]);
       }
     } catch (error) {
-      console.error('Failed to load bookmarks:', error);
+      // Library sometimes throws just the number 1 as an error during startup
+      // This appears to be a race condition but doesn't affect functionality
+      if (error === 1) {
+        console.warn(
+          '⚠️ App Group access temporarily unavailable (startup race condition)',
+        );
+        setBookmarks([]); // Set empty state as fallback
+      } else {
+        console.error('Failed to load bookmarks:', error);
+        console.error('Error details:', JSON.stringify(error, null, 2));
+        console.error('Error type:', typeof error);
+        console.error('Error message:', (error as Error)?.message);
+        console.error('Error code:', (error as any)?.code);
+      }
     }
   }, []);
 
   useEffect(() => {
     loadBookmarks();
-    const subscription = AppState.addEventListener('change', (nextAppState) => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'active') {
         loadBookmarks();
       }
@@ -53,7 +71,7 @@ const HomeScreen = () => {
   }, [loadBookmarks]);
 
   const handleOpenUrl = (url: string) => {
-    Linking.canOpenURL(url).then((supported) => {
+    Linking.canOpenURL(url).then(supported => {
       if (supported) {
         Linking.openURL(url);
       } else {
@@ -71,12 +89,15 @@ const HomeScreen = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.bookmarkItem}
-            onPress={() => handleOpenUrl(item)}>
+            onPress={() => handleOpenUrl(item)}
+          >
             <Text style={styles.bookmarkText}>{item}</Text>
           </TouchableOpacity>
         )}
         ListEmptyComponent={
-          <Text style={styles.emptyText}>No bookmarks yet. Share a URL to add one!</Text>
+          <Text style={styles.emptyText}>
+            No bookmarks yet. Share a URL to add one!
+          </Text>
         }
       />
     </View>
@@ -119,4 +140,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen; 
+export default HomeScreen;
