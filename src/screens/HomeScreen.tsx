@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Linking,
   AppState,
+  Alert,
 } from 'react-native';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
 
@@ -57,6 +58,38 @@ const HomeScreen = () => {
     }
   }, []);
 
+  const deleteBookmark = useCallback(async (urlToDelete: string) => {
+    Alert.alert(
+      'Delete Bookmark',
+      'Are you sure you want to delete this bookmark?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const updatedBookmarks = bookmarks.filter(url => url !== urlToDelete);
+              await SharedGroupPreferences.setItem(
+                userDefaultsKey,
+                JSON.stringify(updatedBookmarks),
+                appGroupId,
+              );
+              setBookmarks(updatedBookmarks);
+              console.log('✅ Bookmark deleted successfully');
+            } catch (error) {
+              console.error('Failed to delete bookmark:', error);
+              Alert.alert('Error', 'Failed to delete bookmark. Please try again.');
+            }
+          },
+        },
+      ],
+    );
+  }, [bookmarks]);
+
   useEffect(() => {
     loadBookmarks();
     const subscription = AppState.addEventListener('change', nextAppState => {
@@ -80,20 +113,32 @@ const HomeScreen = () => {
     });
   };
 
+  const renderBookmarkItem = ({ item }: { item: string }) => (
+    <View style={styles.bookmarkItem}>
+      <TouchableOpacity
+        style={styles.bookmarkContent}
+        onPress={() => handleOpenUrl(item)}
+      >
+        <Text style={styles.bookmarkText} numberOfLines={2}>
+          {item}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => deleteBookmark(item)}
+      >
+        <Text style={styles.deleteButtonText}>×</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bookmarks</Text>
       <FlatList
         data={bookmarks}
         keyExtractor={(item, index) => item + index}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.bookmarkItem}
-            onPress={() => handleOpenUrl(item)}
-          >
-            <Text style={styles.bookmarkText}>{item}</Text>
-          </TouchableOpacity>
-        )}
+        renderItem={renderBookmarkItem}
         ListEmptyComponent={
           <Text style={styles.emptyText}>
             No bookmarks yet. Share a URL to add one!
@@ -119,7 +164,6 @@ const styles = StyleSheet.create({
   },
   bookmarkItem: {
     backgroundColor: '#fff',
-    padding: 15,
     borderRadius: 8,
     marginBottom: 10,
     shadowColor: '#000',
@@ -127,10 +171,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  bookmarkContent: {
+    flex: 1,
+    padding: 15,
   },
   bookmarkText: {
     fontSize: 16,
     color: '#007AFF',
+  },
+  deleteButton: {
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FF3B30',
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
+  },
+  deleteButtonText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
   },
   emptyText: {
     textAlign: 'center',
