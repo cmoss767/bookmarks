@@ -9,6 +9,7 @@ import {
   AppState,
   Alert,
 } from 'react-native';
+import { scheduleDailyRandomBookmarkNotification, cancelAllScheduledNotifications } from '../notifications/scheduler';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
 
 // IMPORTANT: This must match the App Group ID you created in Xcode
@@ -135,6 +136,20 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Bookmarks</Text>
+      <View style={styles.actionsRow}>
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => scheduleDailyRandomBookmarkNotification(9)}
+        >
+          <Text style={styles.actionButtonText}>Enable Daily Reminder</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.actionButton, styles.actionButtonSecondary]}
+          onPress={() => cancelAllScheduledNotifications()}
+        >
+          <Text style={styles.actionButtonText}>Disable</Text>
+        </TouchableOpacity>
+      </View>
       <FlatList
         data={bookmarks}
         keyExtractor={(item, index) => item + index}
@@ -161,6 +176,24 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#333',
+  },
+  actionsRow: {
+    flexDirection: 'row',
+    marginBottom: 12,
+    gap: 10,
+  },
+  actionButton: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 6,
+  },
+  actionButtonSecondary: {
+    backgroundColor: '#8E8E93',
+  },
+  actionButtonText: {
+    color: '#fff',
+    fontWeight: '600',
   },
   bookmarkItem: {
     backgroundColor: '#fff',
