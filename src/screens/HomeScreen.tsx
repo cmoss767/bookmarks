@@ -9,6 +9,8 @@ import {
   AppState,
   Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { getTrialRemainingDays, isSubscribed } from '../subscription/state';
 import { scheduleDailyRandomBookmarkNotification, cancelAllScheduledNotifications } from '../notifications/scheduler';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
 
@@ -20,6 +22,9 @@ const userDefaultsKey = 'bookmarks';
 
 const HomeScreen = () => {
   const [bookmarks, setBookmarks] = useState<string[]>([]);
+  const [trialDaysLeft, setTrialDaysLeft] = useState<number>(0);
+  const [subscribed, setSubscribed] = useState<boolean>(false);
+  const navigation = useNavigation();
 
   const loadBookmarks = useCallback(async () => {
     console.log('🔄 Loading bookmarks...');
@@ -93,6 +98,10 @@ const HomeScreen = () => {
 
   useEffect(() => {
     loadBookmarks();
+    (async () => {
+      setTrialDaysLeft(await getTrialRemainingDays());
+      setSubscribed(await isSubscribed());
+    })();
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'active') {
         loadBookmarks();
@@ -135,7 +144,16 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bookmarks</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <Text style={styles.title}>Bookmarks</Text>
+        {!subscribed && (
+          <TouchableOpacity onPress={() => navigation.navigate('Paywall' as never)}>
+            <View style={styles.upgradePill}>
+              <Text style={styles.upgradePillText}>{trialDaysLeft > 0 ? `${trialDaysLeft}d left` : 'Upgrade'}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      </View>
       <View style={styles.actionsRow}>
         <TouchableOpacity
           style={styles.actionButton}
@@ -194,6 +212,16 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: '#fff',
     fontWeight: '600',
+  },
+  upgradePill: {
+    backgroundColor: '#FF9500',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 999,
+  },
+  upgradePillText: {
+    color: '#fff',
+    fontWeight: '700',
   },
   bookmarkItem: {
     backgroundColor: '#fff',
