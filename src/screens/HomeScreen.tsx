@@ -8,20 +8,24 @@ import {
   Linking,
   AppState,
   Alert,
+  ScrollView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getTrialRemainingDays, isSubscribed } from '../subscription/state';
 import { scheduleDailyRandomBookmarkNotification, cancelAllScheduledNotifications } from '../notifications/scheduler';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
+import { Bookmark, Folder } from '../types';
+import { filterBookmarksByTag, getAllTags, getBookmarkCountByTag } from '../utils/bookmarkManager';
 
 // IMPORTANT: This must match the App Group ID you created in Xcode
 const appGroupId = 'group.com.chrismoss.Markd';
-const userDefaultsKey = 'bookmarks';
-
-// No storage initialization is needed here for this library
+const bookmarksKey = 'bookmarks';
+const foldersKey = 'folders';
 
 const HomeScreen = () => {
-  const [bookmarks, setBookmarks] = useState<string[]>([]);
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [folders, setFolders] = useState<Folder[]>([]);
+  const [selectedTag, setSelectedTag] = useState<string>('');
   const [trialDaysLeft, setTrialDaysLeft] = useState<number>(0);
   const [subscribed, setSubscribed] = useState<boolean>(false);
   const navigation = useNavigation();
@@ -30,7 +34,7 @@ const HomeScreen = () => {
     console.log('🔄 Loading bookmarks...');
     try {
       const jsonString = await SharedGroupPreferences.getItem(
-        userDefaultsKey,
+        bookmarksKey,
         appGroupId,
       );
       console.log(
@@ -41,7 +45,21 @@ const HomeScreen = () => {
       if (jsonString) {
         const storedBookmarks = JSON.parse(jsonString);
         if (Array.isArray(storedBookmarks)) {
-          setBookmarks(storedBookmarks.reverse());
+          // Handle both old format (strings) and new format (Bookmark objects)
+          const bookmarks = storedBookmarks.map((item: any) => {
+            if (typeof item === 'string') {
+              // Convert old string format to new Bookmark format
+              return {
+                id: Date.now().toString() + Math.random().toString(36).substr(2),
+                title: item.replace(/^https?:\/\//, '').split('/')[0],
+                url: item,
+                tags: [],
+                createdAt: Date.now(),
+              };
+            }
+            return item;
+          });
+          setBookmarks(bookmarks.reverse());
         }
       } else {
         setBookmarks([]);
@@ -64,7 +82,22 @@ const HomeScreen = () => {
     }
   }, []);
 
-  const deleteBookmark = useCallback(async (urlToDelete: string) => {
+  const loadFolders = useCallback(async () => {
+    try {
+      const jsonString = await SharedGroupPreferences.getItem(foldersKey, appGroupId);
+      if (jsonString) {
+        const folders = JSON.parse(jsonString);
+        setFolders(folders);
+      } else {
+        setFolders([]);
+      }
+    } catch (error) {
+      console.error('Failed to load folders:', error);
+      setFolders([]);
+    }
+  }, []);
+
+  const deleteBookmark = useCallback(async (bookmarkId: string) => {
     Alert.alert(
       'Delete Bookmark',
       'Are you sure you want to delete this bookmark?',
@@ -78,9 +111,9 @@ const HomeScreen = () => {
           style: 'destructive',
           onPress: async () => {
             try {
-              const updatedBookmarks = bookmarks.filter(url => url !== urlToDelete);
+              const updatedBookmarks = bookmarks.filter(bookmark => bookmark.id !== bookmarkId);
               await SharedGroupPreferences.setItem(
-                userDefaultsKey,
+                bookmarksKey,
                 JSON.stringify(updatedBookmarks),
                 appGroupId,
               );
@@ -98,6 +131,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     loadBookmarks();
+    loadFolders();
     (async () => {
       setTrialDaysLeft(await getTrialRemainingDays());
       setSubscribed(await isSubscribed());
@@ -105,13 +139,14 @@ const HomeScreen = () => {
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (nextAppState === 'active') {
         loadBookmarks();
+        loadFolders();
       }
     });
 
     return () => {
       subscription.remove();
     };
-  }, [loadBookmarks]);
+  }, [loadBookmarks, loadFolders]);
 
   const handleOpenUrl = (url: string) => {
     Linking.canOpenURL(url).then(supported => {
@@ -123,24 +158,76 @@ const HomeScreen = () => {
     });
   };
 
-  const renderBookmarkItem = ({ item }: { item: string }) => (
+  const renderBookmarkItem = ({ item }: { item: Bookmark }) => (
     <View style={styles.bookmarkItem}>
       <TouchableOpacity
         style={styles.bookmarkContent}
-        onPress={() => handleOpenUrl(item)}
+        onPress={() => handleOpenUrl(item.url)}
       >
-        <Text style={styles.bookmarkText} numberOfLines={2}>
-          {item}
+        <Text style={styles.bookmarkTitle} numberOfLines={1}>
+          {item.title}
         </Text>
+        <Text style={styles.bookmarkUrl} numberOfLines={1}>
+          {item.url}
+        </Text>
+        {item.tags.length > 0 && (
+          <View style={styles.tagsContainer}>
+            {item.tags.map((tagId, index) => {
+              const folder = folders.find(f => f.id === tagId);
+              return folder ? (
+                <View
+                  key={index}
+                  style={[styles.tag, { backgroundColor: folder.color }]}
+                >
+                  <Text style={styles.tagText}>{folder.name}</Text>
+                </View>
+              ) : null;
+            })}
+          </View>
+        )}
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.deleteButton}
-        onPress={() => deleteBookmark(item)}
+        onPress={() => deleteBookmark(item.id)}
       >
         <Text style={styles.deleteButtonText}>×</Text>
       </TouchableOpacity>
     </View>
   );
+
+  const renderTagFilter = (tagId: string) => {
+    const folder = folders.find(f => f.id === tagId);
+    const count = getBookmarkCountByTag(bookmarks, tagId);
+    const isSelected = selectedTag === tagId;
+    
+    if (!folder || count === 0) return null;
+
+    return (
+      <TouchableOpacity
+        key={tagId}
+        style={[
+          styles.filterTag,
+          { backgroundColor: isSelected ? folder.color : '#f0f0f0' },
+        ]}
+        onPress={() => setSelectedTag(isSelected ? '' : tagId)}
+      >
+        <Text
+          style={[
+            styles.filterTagText,
+            { color: isSelected ? '#fff' : '#333' },
+          ]}
+        >
+          {folder.name} ({count})
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const filteredBookmarks = selectedTag 
+    ? filterBookmarksByTag(bookmarks, selectedTag)
+    : bookmarks;
+
+  const availableTags = getAllTags(bookmarks);
 
   return (
     <View style={styles.container}>
@@ -154,12 +241,28 @@ const HomeScreen = () => {
           </TouchableOpacity>
         )}
       </View>
+      
       <View style={styles.actionsRow}>
         <TouchableOpacity
           style={styles.actionButton}
+          onPress={() => navigation.navigate('AddBookmark' as never)}
+        >
+          <Text style={styles.actionButtonText}>Add Bookmark</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.actionButton, styles.actionButtonSecondary]}
+          onPress={() => navigation.navigate('FolderManagement' as never)}
+        >
+          <Text style={styles.actionButtonText}>Manage Folders</Text>
+        </TouchableOpacity>
+      </View>
+      
+      <View style={styles.actionsRow}>
+        <TouchableOpacity
+          style={[styles.actionButton, styles.actionButtonSecondary]}
           onPress={() => scheduleDailyRandomBookmarkNotification(9)}
         >
-          <Text style={styles.actionButtonText}>Enable Daily Reminder</Text>
+          <Text style={styles.actionButtonText}>Enable Reminder</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.actionButton, styles.actionButtonSecondary]}
@@ -168,13 +271,45 @@ const HomeScreen = () => {
           <Text style={styles.actionButtonText}>Disable</Text>
         </TouchableOpacity>
       </View>
+
+      {availableTags.length > 0 && (
+        <View style={styles.filtersContainer}>
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            style={styles.filtersScrollView}
+          >
+            <TouchableOpacity
+              style={[
+                styles.filterTag,
+                { backgroundColor: selectedTag === '' ? '#007AFF' : '#f0f0f0' },
+              ]}
+              onPress={() => setSelectedTag('')}
+            >
+              <Text
+                style={[
+                  styles.filterTagText,
+                  { color: selectedTag === '' ? '#fff' : '#333' },
+                ]}
+              >
+                All ({bookmarks.length})
+              </Text>
+            </TouchableOpacity>
+            {availableTags.map(renderTagFilter)}
+          </ScrollView>
+        </View>
+      )}
+
       <FlatList
-        data={bookmarks}
-        keyExtractor={(item, index) => item + index}
+        data={filteredBookmarks}
+        keyExtractor={(item) => item.id}
         renderItem={renderBookmarkItem}
         ListEmptyComponent={
           <Text style={styles.emptyText}>
-            No bookmarks yet. Share a URL to add one!
+            {selectedTag 
+              ? `No bookmarks in this category yet.`
+              : 'No bookmarks yet. Add one to get started!'
+            }
           </Text>
         }
       />
@@ -239,9 +374,49 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
   },
-  bookmarkText: {
+  bookmarkTitle: {
     fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 4,
+  },
+  bookmarkUrl: {
+    fontSize: 14,
     color: '#007AFF',
+    marginBottom: 8,
+  },
+  tagsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  tag: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+  },
+  tagText: {
+    fontSize: 12,
+    color: '#fff',
+    fontWeight: '500',
+  },
+  filtersContainer: {
+    marginBottom: 15,
+  },
+  filtersScrollView: {
+    paddingHorizontal: 20,
+  },
+  filterTag: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
+  },
+  filterTagText: {
+    fontSize: 14,
+    fontWeight: '500',
   },
   deleteButton: {
     width: 44,
