@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen';
 import AddBookmarkScreen from '../screens/AddBookmarkScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import PaywallScreen from '../screens/PaywallScreen';
+import FolderManagementScreen from '../screens/FolderManagementScreen';
 import { isOnboardingCompleted, isSubscribed, isTrialActive } from '../subscription/state';
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +39,7 @@ const AppNavigator = () => {
         <Stack.Screen name="Paywall" component={PaywallScreen} options={{ title: 'Upgrade' }} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="AddBookmark" component={AddBookmarkScreen} />
+        <Stack.Screen name="FolderManagement" component={FolderManagementScreen} options={{ title: 'Manage Folders' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
