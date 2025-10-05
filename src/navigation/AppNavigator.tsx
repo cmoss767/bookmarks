@@ -6,7 +6,7 @@ import AddBookmarkScreen from '../screens/AddBookmarkScreen';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import PaywallScreen from '../screens/PaywallScreen';
 import FolderManagementScreen from '../screens/FolderManagementScreen';
-import { isOnboardingCompleted, isSubscribed, isTrialActive } from '../subscription/state';
+import { isOnboardingCompleted, isSubscribed, isTrialActive, initializeStoreKit } from '../subscription/state';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,17 +15,26 @@ const AppNavigator = () => {
 
   useEffect(() => {
     (async () => {
-      const completed = await isOnboardingCompleted();
-      if (!completed) {
+      try {
+        // Initialize StoreKit
+        await initializeStoreKit();
+        
+        const completed = await isOnboardingCompleted();
+        if (!completed) {
+          setInitialRoute('Onboarding');
+          return;
+        }
+        const subscribed = await isSubscribed();
+        const trial = await isTrialActive();
+        if (subscribed || trial) {
+          setInitialRoute('Home');
+        } else {
+          setInitialRoute('Paywall');
+        }
+      } catch (error) {
+        console.error('Failed to initialize app:', error);
+        // Fallback to onboarding if StoreKit fails
         setInitialRoute('Onboarding');
-        return;
-      }
-      const subscribed = await isSubscribed();
-      const trial = await isTrialActive();
-      if (subscribed || trial) {
-        setInitialRoute('Home');
-      } else {
-        setInitialRoute('Paywall');
       }
     })();
   }, []);
