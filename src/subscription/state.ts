@@ -79,7 +79,7 @@ export async function initializeStoreKit(): Promise<void> {
     
     // Set up purchase callbacks
     storeKitService.setPurchaseCallbacks(
-      async (purchase) => {
+      async (_purchase) => {
         console.log('Purchase successful, activating subscription');
         await activateSubscription();
       },
