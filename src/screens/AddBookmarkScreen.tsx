@@ -14,10 +14,9 @@ import { useNavigation } from '@react-navigation/native';
 import { Bookmark, Folder } from '../types';
 import { createBookmark, isValidUrl, getDefaultFolders } from '../utils/bookmarkManager';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
+import { APP_CONFIG } from '../config/app';
 
-const appGroupId = 'group.com.chrismoss.Markd';
-const bookmarksKey = 'bookmarks';
-const foldersKey = 'folders';
+const { APP_GROUP_ID, STORAGE_KEYS } = APP_CONFIG;
 
 const AddBookmarkScreen = () => {
   const [url, setUrl] = useState('');
@@ -32,14 +31,14 @@ const AddBookmarkScreen = () => {
 
   const loadFolders = async () => {
     try {
-      const jsonString = await SharedGroupPreferences.getItem(foldersKey, appGroupId);
+      const jsonString = await SharedGroupPreferences.getItem(STORAGE_KEYS.folders, APP_GROUP_ID);
       if (jsonString) {
         const folders = JSON.parse(jsonString);
         setAvailableFolders(folders);
       } else {
         // Initialize with default folders
         const defaultFolders = getDefaultFolders();
-        await SharedGroupPreferences.setItem(foldersKey, JSON.stringify(defaultFolders), appGroupId);
+        await SharedGroupPreferences.setItem(STORAGE_KEYS.folders, JSON.stringify(defaultFolders), APP_GROUP_ID);
         setAvailableFolders(defaultFolders);
       }
     } catch (error) {
@@ -69,7 +68,7 @@ const AddBookmarkScreen = () => {
 
     try {
       // Load existing bookmarks
-      const jsonString = await SharedGroupPreferences.getItem(bookmarksKey, appGroupId);
+      const jsonString = await SharedGroupPreferences.getItem(STORAGE_KEYS.bookmarks, APP_GROUP_ID);
       const existingBookmarks: Bookmark[] = jsonString ? JSON.parse(jsonString) : [];
 
       // Create new bookmark
@@ -79,7 +78,7 @@ const AddBookmarkScreen = () => {
       const updatedBookmarks = [newBookmark, ...existingBookmarks];
 
       // Save back to storage
-      await SharedGroupPreferences.setItem(bookmarksKey, JSON.stringify(updatedBookmarks), appGroupId);
+      await SharedGroupPreferences.setItem(STORAGE_KEYS.bookmarks, JSON.stringify(updatedBookmarks), APP_GROUP_ID);
 
       Alert.alert('Success', 'Bookmark added successfully!', [
         {
