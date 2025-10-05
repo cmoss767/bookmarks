@@ -2,6 +2,15 @@ import UIKit
 import Social
 import UniformTypeIdentifiers
 
+// Bookmark struct that matches the TypeScript interface
+struct Bookmark: Codable {
+    let id: String
+    let title: String
+    let url: String
+    let tags: [String]
+    let createdAt: Int64
+}
+
 class ShareViewController: UIViewController {
 
     // IMPORTANT: This must match the App Group ID you created in Xcode
@@ -47,27 +56,58 @@ class ShareViewController: UIViewController {
             return
         }
 
-        var bookmarks: [String] = []
+        var bookmarks: [Bookmark] = []
         
         // 1. Read the existing JSON string
         if let jsonString = userDefaults.string(forKey: userDefaultsKey) {
-            // 2. Try to decode it
-            if let data = jsonString.data(using: .utf8),
-               let decodedBookmarks = try? JSONDecoder().decode([String].self, from: data) {
-                bookmarks = decodedBookmarks
+            if let data = jsonString.data(using: .utf8) {
+                // Try to decode as new Bookmark format first
+                if let decodedBookmarks = try? JSONDecoder().decode([Bookmark].self, from: data) {
+                    bookmarks = decodedBookmarks
+                } else if let decodedStrings = try? JSONDecoder().decode([String].self, from: data) {
+                    // Backward compatibility: convert old string format to new Bookmark format
+                    bookmarks = decodedStrings.map { urlString in
+                        createBookmarkFromUrl(urlString)
+                    }
+                    print("Converted \(decodedStrings.count) old bookmarks to new format")
+                }
             }
         }
         
-        // 3. Append the new URL
-        bookmarks.append(url.absoluteString)
+        // 2. Create new bookmark
+        let newBookmark = createBookmarkFromUrl(url.absoluteString)
+        bookmarks.append(newBookmark)
         
-        // 4. Re-encode to JSON
+        // 3. Save the updated bookmarks array
         if let data = try? JSONEncoder().encode(bookmarks),
            let jsonString = String(data: data, encoding: .utf8) {
-            // 5. Save the new JSON string
             userDefaults.set(jsonString, forKey: userDefaultsKey)
-            print("Bookmark JSON saved: \(jsonString)")
+            print("Bookmark saved successfully. Total bookmarks: \(bookmarks.count)")
+        } else {
+            print("Failed to encode bookmarks")
         }
+    }
+    
+    private func createBookmarkFromUrl(_ urlString: String) -> Bookmark {
+        // Generate a simple ID (similar to the TypeScript generateId function)
+        let id = String(Int64(Date().timeIntervalSince1970 * 1000), radix: 36) + String(Int.random(in: 0...999999), radix: 36)
+        
+        // Extract title from URL (similar to extractTitleFromUrl in TypeScript)
+        let title = extractTitleFromUrl(urlString)
+        
+        return Bookmark(
+            id: id,
+            title: title,
+            url: urlString,
+            tags: [],
+            createdAt: Int64(Date().timeIntervalSince1970 * 1000)
+        )
+    }
+    
+    private func extractTitleFromUrl(_ urlString: String) -> String {
+        guard let url = URL(string: urlString) else { return urlString }
+        let hostname = url.host ?? urlString
+        return hostname.replacingOccurrences(of: "www.", with: "")
     }
 
     private func dismissExtension() {

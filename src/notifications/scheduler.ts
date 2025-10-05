@@ -1,5 +1,6 @@
 import notifee, { AndroidImportance, TimestampTrigger, TriggerType, RepeatFrequency, AuthorizationStatus } from '@notifee/react-native';
 import SharedGroupPreferences from 'react-native-shared-group-preferences';
+import { Bookmark } from '../types';
 
 const APP_GROUP_ID = 'group.com.chrismoss.Markd';
 const USER_DEFAULTS_KEY = 'bookmarks';
@@ -36,7 +37,19 @@ async function loadBookmarks(): Promise<string[]> {
     );
     if (!jsonString) return [];
     const stored = JSON.parse(jsonString);
-    return Array.isArray(stored) ? stored : [];
+    
+    if (Array.isArray(stored)) {
+      // Check if it's the new Bookmark format or old string format
+      if (stored.length > 0 && typeof stored[0] === 'object' && 'url' in stored[0]) {
+        // New Bookmark format - extract URLs
+        return (stored as Bookmark[]).map(bookmark => bookmark.url);
+      } else {
+        // Old string format
+        return stored as string[];
+      }
+    }
+    
+    return [];
   } catch {
     return [];
   }
